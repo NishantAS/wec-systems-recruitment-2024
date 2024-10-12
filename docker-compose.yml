@@ -1,0 +1,48 @@
+services:
+  db:
+    image: mysql:8.0
+    command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci', '--default-authentication-plugin=mysql_native_password']
+    volumes:
+      - my_sql:/var/lib/db/data
+      - ./tmp/sockets:/var/run/mysqld/
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=development
+    networks:
+      - internal_network
+    restart: always
+  web:
+    build:
+      args:
+        - RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
+      context: .
+      dockerfile: docker/Dockerfile.main
+    command: bash -c "./bin/rails db:prepare && bundle exec rails server -b 0.0.0.0"
+    volumes:
+      - ./tmp/sockets:/var/run/mysqld/
+    depends_on:
+      - db
+    deploy:
+      replicas: 3
+    networks:
+      - internal_network
+    restart: always
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.ngnix
+    ports:
+      - "8080:3001"
+    volumes:
+      - ./tmp/sockets:/tmp/sockets
+      - ./log:/var/www/rails/log
+    networks:
+      - internal_network
+    depends_on:
+      - web
+    restart: always
+networks:
+  internal_network:
+volumes:
+  my_sql:
+    name: server_data

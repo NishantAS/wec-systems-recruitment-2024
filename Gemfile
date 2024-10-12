@@ -15,13 +15,13 @@ gem 'sass-rails', '>= 6'
 gem 'webpacker', '~> 5.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
-gem 'activesupport', '~> 7.1', '>= 7.1.3.2'
+# gem 'activesupport', '~> 7.1', '>= 7.1.3.2'
 
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
 gem 'jquery-ui-rails'
 
-gem 'nokogiri', '~> 1.15', '>= 1.15.4'
+# gem 'nokogiri', '~> 1.15', '>= 1.15.4'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
@@ -42,7 +42,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
-gem 'activemodel', '~> 7.1', '>= 7.1.3.2'
+# gem 'activemodel', '~> 7.1', '>= 7.1.3.2'
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 4.1.0'
